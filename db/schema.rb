@@ -71,4 +71,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_002429) do
   add_foreign_key "comments", "users"
   add_foreign_key "listings", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "users_groups", "groups"
+  add_foreign_key "users_groups", "users"
 end
