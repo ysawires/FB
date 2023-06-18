@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_18_002429) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_18_015807) do
   create_table "comments", force: :cascade do |t|
     t.text "field"
     t.datetime "created_at", null: false
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_002429) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.string "reactable_type"
+    t.integer "reactable_id"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reactable_type", "reactable_id"], name: "index_reactions_on_reactable"
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "age"
@@ -71,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_18_002429) do
   add_foreign_key "comments", "users"
   add_foreign_key "listings", "users"
   add_foreign_key "posts", "users"
+  add_foreign_key "reactions", "users"
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "users"
 end
