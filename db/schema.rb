@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_035422) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_200050) do
   create_table "comments", force: :cascade do |t|
     t.text "field"
     t.datetime "created_at", null: false
@@ -76,6 +76,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_035422) do
     t.string "email"
   end
 
+  create_table "users_events", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_users_events_on_event_id"
+    t.index ["user_id"], name: "index_users_events_on_user_id"
+  end
+
   create_table "users_groups", force: :cascade do |t|
     t.integer "user_id"
     t.integer "group_id"
@@ -90,6 +99,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_19_035422) do
   add_foreign_key "listings", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "reactions", "users"
+  add_foreign_key "users_events", "events"
+  add_foreign_key "users_events", "users"
   add_foreign_key "users_groups", "groups"
   add_foreign_key "users_groups", "users"
 end
